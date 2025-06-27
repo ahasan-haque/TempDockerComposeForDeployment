@@ -1,10 +1,12 @@
 services:
   backend:
     image: newnowregistry.azurecr.io/hpe-backend:latest
-    ports:
-      - "8000:8000"
+    # Backend only exposed internally, not to the internet
+    expose:
+      - "8000"
     environment:
       - PYTHONUNBUFFERED=1
+      - ALLOWED_ORIGINS=https://hpe-smart-choice.azurewebsites.net
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -23,8 +25,6 @@ services:
         condition: service_healthy
     networks:
       - app-network
-    environment:
-      - VITE_API_URL=http://backend:8000
 
 networks:
   app-network:
