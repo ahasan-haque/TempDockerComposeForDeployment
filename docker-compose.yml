@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./backend
+    image: newnowregistry.azurecr.io/hpe-backend:latest
     ports:
       - "8000:8000"
     environment:
@@ -15,7 +15,7 @@ services:
       - app-network
 
   frontend:
-    build: ./frontend
+    image: newnowregistry.azurecr.io/hpe-frontend:latest
     ports:
       - "80:80"
     depends_on:
